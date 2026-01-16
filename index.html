@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b0e11" />
+  <title>VITO TRADERITO</title>
+
+  <style>
+    :root{
+      --bg:#0b0e11;
+      --text:#eaeaea;
+      --muted:#a1a1a1;
+      --gold1:#e6c77a;
+      --gold2:#c9a24d;
+      --card:rgba(255,255,255,.04);
+      --stroke:rgba(255,255,255,.08);
+      --shadow:rgba(0,0,0,.55);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 50% 25%, rgba(201,162,77,.14), transparent 60%),
+        radial-gradient(700px 400px at 20% 85%, rgba(230,199,122,.10), transparent 60%),
+        linear-gradient(180deg, #07090b, var(--bg));
+      overflow:hidden;
+    }
+
+    /* subtle grain */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
+      opacity:.22;
+      pointer-events:none;
+    }
+
+    .wrap{
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+
+    .card{
+      width:min(960px, 100%);
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:28px;
+      padding:28px;
+      border-radius:22px;
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid var(--stroke);
+      box-shadow: 0 25px 80px var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 860px){
+      body{overflow:auto}
+      .card{
+        grid-template-columns:1fr;
+        padding:22px;
+      }
+    }
+
+    .visual{
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.25);
+      position:relative;
+      min-height:320px;
+    }
+
+    .visual::after{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(600px 360px at 50% 10%, rgba(230,199,122,.18), transparent 60%),
+                  linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.25));
+      pointer-events:none;
+    }
+
+    .visual img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transform: scale(1.02);
+      filter: contrast(1.05) saturate(1.05);
+    }
+
+    .content{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:6px 6px 6px 2px;
+    }
+
+    .brand{
+      letter-spacing:.28em;
+      text-transform:uppercase;
+      font-size:12px;
+      color:rgba(230,230,230,.70);
+      margin-bottom:10px;
+    }
+
+    h1{
+      margin:0 0 14px 0;
+      font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+      font-weight:700;
+      line-height:1.05;
+      font-size: clamp(28px, 3.2vw, 44px);
+    }
+
+    .gold{
+      background: linear-gradient(135deg, var(--gold1), var(--gold2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .desc{
+      margin:0 0 18px 0;
+      color:rgba(234,234,234,.86);
+      font-size:16px;
+      line-height:1.55;
+      max-width: 44ch;
+    }
+
+    .bullets{
+      margin:0 0 20px 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:8px;
+      color:rgba(234,234,234,.78);
+      font-size:14px;
+    }
+    .bullets li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .dot{
+      width:8px; height:8px;
+      border-radius:999px;
+      margin-top:6px;
+      background: linear-gradient(135deg, var(--gold1), var(--gold2));
+      box-shadow: 0 0 16px rgba(201,162,77,.35);
+      flex:0 0 auto;
+    }
+
+    .ctaRow{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+
+    .btn{
+      appearance:none;
+      border:1px solid rgba(230,199,122,.55);
+      background: linear-gradient(180deg, rgba(230,199,122,.18), rgba(201,162,77,.10));
+      color:var(--text);
+      padding:12px 16px;
+      border-radius:14px;
+      font-weight:600;
+      letter-spacing:.02em;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      box-shadow: 0 10px 28px rgba(0,0,0,.35);
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(230,199,122,.85);
+      box-shadow: 0 14px 36px rgba(0,0,0,.45);
+    }
+
+    .btn .arrow{
+      width:22px; height:22px;
+      border-radius:999px;
+      display:grid; place-items:center;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    .note{
+      font-size:12px;
+      color:rgba(161,161,161,.95);
+      line-height:1.4;
+      margin:0;
+    }
+
+    .footer{
+      margin-top:14px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .pill{
+      font-size:12px;
+      color:rgba(234,234,234,.78);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <section class="card" role="region" aria-label="Landing">
+      <!-- LEFT: image -->
+      <div class="visual">
+        <!-- crypto.png должен лежать рядом с этим html -->
+        <img src="crypto.png" alt="Crypto visual" />
+      </div>
+
+      <!-- RIGHT: content -->
+      <div class="content">
+        <div class="brand">VITO TRADERITO</div>
+
+        <h1>
+          <span class="gold">Системная работа</span><br/>
+          команды трейдеров<br/>
+          с рынком фьючерсов
+        </h1>
+
+        <p class="desc">
+          Без сигналов. Без курсов. Без обещаний.<br/>
+          Мы показываем формат работы.
+        </p>
+
+        <ul class="bullets">
+          <li><span class="dot"></span><span>Спокойный подход без давления</span></li>
+          <li><span class="dot"></span><span>Система, дисциплина, контроль риска</span></li>
+          <li><span class="dot"></span><span>Подходит не всем — и это нормально</span></li>
+        </ul>
+
+        <div class="ctaRow">
+          <!-- ЗАМЕНИ ССЫЛКУ НА СВОЮ -->
+          <a class="btn" href="https://t.me/YOUR_BOT_USERNAME?start=from_site" target="_blank" rel="noopener">
+            Перейти в Telegram
+            <span class="arrow">→</span>
+          </a>
+          <p class="note">Откроется Telegram и бот продолжит знакомство.</p>
+        </div>
+
+        <div class="footer">
+          <span class="pill">Команда трейдеров</span>
+          <span class="pill">Фьючерсы</span>
+          <span class="pill">Системный подход</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- optional: minimal tracking hook -->
+  <script>
+    // Если хочешь, можно добавить простую аналитику на клик по кнопке.
+    // Сейчас скрипт ничего не отправляет — только заготовка.
+    document.querySelector(".btn")?.addEventListener("click", () => {
+      // console.log("CTA click");
+    });
+  </script>
+</body>
+</html>
